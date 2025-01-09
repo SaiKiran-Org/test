@@ -1,0 +1,43 @@
+name: Branch Protection Workflow
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository code
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # Step 2: Run tests (example: Python tests)
+      - name: Run Unit Tests
+        run: |
+          echo "Running tests..."
+          # Replace with actual test commands for your project
+          echo "Tests passed!"
+
+      # Step 3: Enforce linting (example: Python linting)
+      - name: Run Code Linter
+        run: |
+          echo "Running linter..."
+          # Replace with actual linting commands for your project
+          echo "Linting passed!"
+
+  review:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 4: Ensure PR meets criteria before merging
+      - name: Check PR Title
+        run: |
+          if [[ ! $(echo "${{ github.event.pull_request.title }}" | grep -iE "^[A-Z]+-[0-9]+") ]]; then
+            echo "Error: PR title does not match the required format (e.g., JIRA-1234)."
+            exit 1
+          fi
+          echo "PR title format validated."
