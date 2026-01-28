@@ -1,0 +1,20 @@
+name: mac self-hosted sample
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  run-on-mac:
+    name: Run on self-hosted Mac
+    runs-on: [self-hosted, MAC]
+
+    steps:
+      - name: Show runner info
+        run: |
+          echo "Runner name: $RUNNER_NAME"
+          echo "OS: $RUNNER_OS"
+          uname -a
+
+      - name: Say hello
+        run: echo "Hello from self-hosted macOS runner 🍎🚀"
