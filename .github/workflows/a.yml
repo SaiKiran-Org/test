@@ -7,7 +7,7 @@ on:
 jobs:
   run-on-mac:
     name: Run on self-hosted Mac
-    runs-on: [MAC]
+    runs-on: [macOS]
 
     steps:
       - name: Show runner info
